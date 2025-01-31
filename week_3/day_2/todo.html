@@ -1,0 +1,65 @@
+<body>
+    <input type="text"></input>
+    <button onclick="addTodo()">Add todo!</button>
+    <button onclick="deleteFirstTodo()">Delete first todo</button>
+    <button onclick="deleteLastTodo()">Delete last todo</button>
+    <ol>
+
+    </ol>
+    <script>
+        var count = 1
+        // State    
+        const todos = [];
+        // Component
+        function createTodoComponent(todo) {
+            var val = document.querySelector('input').value;
+            var listEl= document.createElement("li");
+            listEl.setAttribute('id',todo.id);
+            var textEl = document.createElement("span");
+            var buttonEl = document.createElement("button");
+            buttonEl.setAttribute('onclick', `deleteTodo(${todo.id})`);
+            buttonEl.innerHTML = 'Delete';
+            textEl.innerHTML = todo.title;
+            listEl.appendChild(textEl);
+            listEl.appendChild(buttonEl);
+            return listEl;
+        }
+        function addTodo() {
+            todos.push({
+                id: count,
+                title: document.querySelector("input").value
+            })
+            count++;
+            render();
+          }
+      
+          function deleteTodo(id) {
+            for (let i = 0; i < todos.length; i++) {
+                if (todos[i].id == id) {
+                    todos.splice(i,1);
+                }
+            }
+            render();
+          }
+
+          function deleteLastTodo() {
+            todos.splice(todos.length -1, 1);
+            render();
+          }
+
+          function deleteFirstTodo() {
+            todos.splice(0,1);
+            render();
+          }
+       
+          function render() {
+            var el = document.querySelector("ol");
+            el.innerHTML = "";
+            for (var i=0; i< todos.length; i++) {
+                var listEle = createTodoComponent(todos[i]);
+                el.appendChild(listEle);
+            }
+            
+          }
+    </script>
+  </body>
