@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { usePrev } from "./hooks/usePrev";
 
-function App() {
+function UsePrevDemoApp() {
   const [state, setState] = useState(0);
   const prev = usePrev(state);
   return (
